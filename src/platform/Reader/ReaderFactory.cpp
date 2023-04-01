@@ -10,14 +10,9 @@
 #include "ReaderNBR.h"
 #include "filesystem"
 
-short ReaderFactory::DetermineFileType(const std::string &filename_)
+short ReaderFactory::DetermineFileType(const std::string &filename)
 {
-    std::filesystem::path path(filename_);
-    std::filesystem::path  filename = path.stem();
-    std::string extension = path.filename().string().substr(filename.string().length());
-
-    //std::string extension = filename.substr(filename.find((".") + 1));
-    std::cout << extension << std::endl;
+    std::string extension = filename.substr(filename.find_first_of(".") + 1);
     if (extension == "tbl" || extension == "tbl.json")
     {
         return 1;

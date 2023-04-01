@@ -38,6 +38,11 @@ void start(int argc, char *argv[]){
                 }
             }
         }
+
+        if(std::strcmp(argv[1], "-печать") == 0){
+
+        }
+
     }
     else{
         std::string line;
@@ -48,10 +53,11 @@ void start(int argc, char *argv[]){
         file.close();
     }
 }
-
 int main(int argc, char *argv[] ){
-    start(argc, argv);
+    //start(argc, argv);
+//    auto obj1 = ReaderFactory::CreateReader("/home/orys/Desktop/target/Наборы значков/p17-5/scale1.tbl");
+//    auto data = obj1->GetData();
+//    auto str = std::get<tbl*>(data);
 
-    //PathMaker::create("path.json");
     return 0;
 }

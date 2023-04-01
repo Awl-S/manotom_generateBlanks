@@ -22,7 +22,6 @@ void ReaderZGT::ReadFile()
     std::string line;
     while (std::getline(file, line))
     {
-        // std::cout << count << " " <<line << std::endl;
         switch (count)
         {
             case 2:
@@ -53,6 +52,14 @@ void ReaderZGT::ReadFile()
                 {
                     data->marker_position.push_back(temp);
                 }
+                break;
+            }
+            case 10:{
+                std::istringstream (line) >> data->font_serial_number[0] >> data->font_serial_number[1];
+                break;
+            }
+            case 12:{
+                std::istringstream (line) >> data->stop_position[0] >> data->stop_position[1] >> data->stop_position[2];
                 break;
             }
         }

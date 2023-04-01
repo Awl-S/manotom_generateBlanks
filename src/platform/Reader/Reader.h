@@ -22,6 +22,7 @@ public:
     virtual void ReadJson() = 0;
     virtual std::variant<tbl *, cfm *, zgt *, nbr *, location *> GetData() = 0;
     virtual void SetFilename(const std::string &path) = 0;
+    virtual void display() = 0;
     virtual ~Reader() {}
 
 protected:

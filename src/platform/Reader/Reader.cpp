@@ -54,6 +54,7 @@ void Reader::preRead(const std::string &path)
 short Reader::DetermineFileOrJson(const std::string &filename)
 {
     std::string extension = filename.substr(filename.find_last_of(".") + 1);
+    std::cout << extension << std::endl;
     if (extension == "tbl" || extension == "cfm" || extension == "нбр" || extension == "згт")
     {
         return 0;

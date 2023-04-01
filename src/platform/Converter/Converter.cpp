@@ -25,10 +25,12 @@ void Converter::ConverterUTF(std::string path_in, std::string path_out)
         if (fs::is_regular_file(entry.path()))
         {
             auto ext = entry.path().extension();
-            if (ext != ".jpg" && ext != ".JPG" && ext != ".GIF" && ext != ".bmp")
+            if (ext == ".cfm" || ext == ".tbl" || ext == ".згт")
             {
                 convert_file(from_charsets, to_charsets, path_in + entry.path().string().substr(start_path.string().length()), path_out + entry.path().string().substr(start_path.string().length()));
                 std::cout << entry.path().string().substr(start_path.string().length()) << '\n';
+            } else{
+                std::filesystem::copy(path_in + entry.path().string().substr(start_path.string().length()), path_out + entry.path().string().substr(start_path.string().length()));
             }
         }
     }
@@ -51,14 +53,13 @@ void Converter::ConverterUTF(std::string path_in, std::string path_out)
         if (fs::is_regular_file(entry.path()))
         {
             auto ext = entry.path().extension();
-            if (ext != ".jpg" && ext != ".JPG" && ext != ".GIF" && ext != ".bmp")
+            if (ext == ".cfm" || ext == ".tbl" || ext == ".згт")
             {
                 convert_file(in_charset, out_charset, path_in + entry.path().string().substr(start_path.string().length()), path_out + entry.path().string().substr(start_path.string().length()));
-                // std::cout << entry.path().string().substr(start_path.string().length()) << '\n';
             }
             else
             {
-                std::cout << entry.path().string().substr(start_path.string().length()) << '\n';
+                std::filesystem::copy(path_in + entry.path().string().substr(start_path.string().length()), path_out + entry.path().string().substr(start_path.string().length()));
             }
         }
     }

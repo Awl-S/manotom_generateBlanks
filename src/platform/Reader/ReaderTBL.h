@@ -21,6 +21,10 @@ public:
     std::variant<tbl *, cfm *, zgt *, nbr *, location *> GetData() override;
 
     void SetFilename(const std::string &path) override;
+
+    void display() override{
+
+    }
 };
 
 

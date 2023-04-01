@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_CONVERTER_H
 #define MANOTOM_GENERATEBLANKS_CONVERTER_H
 
@@ -20,6 +16,5 @@ public:
 
     [[maybe_unused]] static void ConverterUTF(std::string path_in, std::string in_charset, std::string path_out, std::string out_charset);
 };
-
 
 #endif //MANOTOM_GENERATEBLANKS_CONVERTER_H

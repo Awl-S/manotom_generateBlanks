@@ -1,14 +1,9 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #include <filesystem>
 #include "ReaderFactory.h"
 #include "ReaderTBL.h"
 #include "ReaderZGT.h"
 #include "ReaderCFM.h"
 #include "ReaderNBR.h"
-#include "filesystem"
 
 short ReaderFactory::DetermineFileType(const std::string &filename)
 {

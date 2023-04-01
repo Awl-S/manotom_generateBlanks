@@ -1,14 +1,8 @@
-//
-// Created by orys on 01.04.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_MANAGER_H
 #define MANOTOM_GENERATEBLANKS_MANAGER_H
-
 
 class Manager {
 
 };
-
 
 #endif //MANOTOM_GENERATEBLANKS_MANAGER_H

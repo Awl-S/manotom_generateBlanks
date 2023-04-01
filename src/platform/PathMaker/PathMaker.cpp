@@ -1,7 +1,3 @@
-//
-// Created by orys on 01.04.23.
-//
-
 #include "PathMaker.h"
 
 void PathMaker::editJsonFile(std::string paramToEdit) {

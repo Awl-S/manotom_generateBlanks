@@ -5,6 +5,7 @@
 #include "src/platform/Converter/Converter.h"
 #include "src/platform/Reader/ReaderFactory.h"
 #include "src/platform/PathMaker/PathMaker.h"
+#include "src/struct/settings/settings.h"
 
 void start(int argc, char *argv[]){
     if(argc > 1){
@@ -40,9 +41,32 @@ void start(int argc, char *argv[]){
         }
 
         if(std::strcmp(argv[1], "-печать") == 0){
+            settings* data = new settings("", 0, 0, 0);
+            data->accuracy = argv[2];
+            data->color = atof(argv[3]);
 
+            // Температура
+            if(std::strcmp(argv[4], "true") == 0 || std::strcmp(argv[4], "1") == 0){
+                data->temperature = true;
+            }
+            if(std::strcmp(argv[4], "false") == 0 || std::strcmp(argv[4], "0") == 0){
+                data->temperature = false;
+            }
+
+            // Контур
+            if(std::strcmp(argv[5], "true") == 0 || std::strcmp(argv[5], "1") == 0){
+                data->contour = true;
+            }
+            if(std::strcmp(argv[5], "false") == 0 || std::strcmp(argv[5], "0") == 0){
+                data->contour = false;
+            }
+            //путь, класс точности, bool -65, double значение цвета, bool контур
         }
 
+        if(std::strcmp(argv[1], "-test") == 0) {
+            auto obj1 = ReaderFactory::CreateReader(argv[2]);
+            obj1->display();
+        }
     }
     else{
         std::string line;
@@ -54,10 +78,6 @@ void start(int argc, char *argv[]){
     }
 }
 int main(int argc, char *argv[] ){
-    //start(argc, argv);
-//    auto obj1 = ReaderFactory::CreateReader("/home/orys/Desktop/target/Наборы значков/p17-5/scale1.tbl");
-//    auto data = obj1->GetData();
-//    auto str = std::get<tbl*>(data);
-
+    start(argc, argv);
     return 0;
 }

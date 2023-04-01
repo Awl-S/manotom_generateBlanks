@@ -1,8 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
-
 #include "ReaderCFM.h"
 
 void ReaderCFM::ReadFile()
@@ -103,4 +98,24 @@ void ReaderCFM::SetFilename(const std::string &path)
 {
     filename = path;
     preRead(filename);
+}
+
+void ReaderCFM::display() {
+    std::cout << "\n\nHeader: " << data->header << '\n';
+    std::cout << "-заготовка: " << data->blank << '\n';
+    std::cout << "отметки:: ";
+    for (const auto &mark : data->marks)
+    {
+        std::cout << mark << ' ';
+    }
+    std::cout << '\n';
+    std::cout << "формат вывода отметок:: {" << data->format[0] << ", " << data->format[1] << "}\n";
+    std::cout << "диаметр шкалы внешний:: " << data->diameter << '\n';
+    std::cout << "длина и толщина малой риски: {" << data->small_tick[0] << ", " << data->small_tick[1] << "}\n";
+    std::cout << "длина и толщина большой риски: {" << data->big_tick[0] << ", " << data->big_tick[1] << "}\n";
+    std::cout << "цифровая риска (общая длина, общая толщина, длина утолщения, толщина утолщения): {" << data->digital_tick[0] << ", " << data->digital_tick[1]
+              << ", " << data->digital_tick[2] << ", " << data->digital_tick[3] << "}\n";
+    std::cout << "высота цифр (мм): " << data->digit_height << '\n';
+    std::cout << "высота надписи класс точности: " << data->label_height << '\n';
+    std::cout << "маска вывода рисок:: " << data->tick_mask << "\n\n";
 }

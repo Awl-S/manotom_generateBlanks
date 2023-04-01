@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_READER_H
 #define MANOTOM_GENERATEBLANKS_READER_H
 
@@ -26,7 +22,6 @@ public:
     virtual ~Reader() {}
 
 protected:
-    bool DetermineFileType(const std::string &filename);
 
     short DetermineFileOrJson(const std::string &filename);
 
@@ -34,5 +29,4 @@ protected:
 
     static std::string readLineString(std::ifstream &file);
 };
-
 #endif //MANOTOM_GENERATEBLANKS_READER_H

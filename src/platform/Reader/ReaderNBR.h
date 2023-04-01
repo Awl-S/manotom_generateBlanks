@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_READERNBR_H
 #define MANOTOM_GENERATEBLANKS_READERNBR_H
 #include "Reader.h"
@@ -21,6 +17,4 @@ public:
 
     }
 };
-
-
 #endif //MANOTOM_GENERATEBLANKS_READERNBR_H

@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #include "ReaderZGT.h"
 
 ReaderZGT::ReaderZGT(const std::string &filename) : filename(filename)
@@ -81,4 +77,26 @@ void ReaderZGT::SetFilename(const std::string &path)
 {
     filename = path;
     preRead(filename);
+}
+
+void ReaderZGT::display() {
+    std::cout << std::endl;
+    std::cout << "диаметр заготовки:: " << data->diameter << std::endl;
+    std::cout << "диаметр центрального отверстия:: " << data->center_hole_diameter << std::endl;
+    std::cout << "крепежные отверстия (положение x,y от центра и диаметры):\n";
+    for (const auto &i : data->mounting_holes)
+    {
+        std::cout << i << "\t";
+    }
+    std::cout << std::endl;
+    std::cout << "расположение мест для значков (в [мм] от центра, +y вниз, +x вправо, тип 1-середина низа,2-центр,3-по радиусу(?), место для класса точности указывается первым (нулевым)):\n";
+    for (const auto &i : data->marker_position)
+    {
+        std::cout << i << "\t";
+    }
+    std::cout << std::endl;
+    std::cout << "Размер шрифта серийного номера\n";
+    std::cout << data->font_serial_number[0] << "\t" << data->font_serial_number[1] << std::endl;
+    std::cout << "положение упора r[мм], fi[град] относительно отметки 0, d[мм] диаметр упора\n";
+    std::cout << data->stop_position[0] << "\t" << data->stop_position[1] << "\t" << data->stop_position[2] << std::endl;
 }

@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_READERTBL_H
 #define MANOTOM_GENERATEBLANKS_READERTBL_H
 
@@ -9,7 +5,7 @@
 
 class ReaderTBL : public Reader{
     tbl *data;
-    std::string filename = "-1";
+    std::string filename{};
 
 public:
     ReaderTBL(const std::string &filename);
@@ -22,10 +18,6 @@ public:
 
     void SetFilename(const std::string &path) override;
 
-    void display() override{
-
-    }
+    void display() override;
 };
-
-
 #endif //MANOTOM_GENERATEBLANKS_READERTBL_H

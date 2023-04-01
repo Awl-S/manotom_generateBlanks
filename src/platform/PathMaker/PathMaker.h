@@ -1,7 +1,3 @@
-//
-// Created by orys on 01.04.23.
-//
-
 #ifndef MANOTOM_GENERATEBLANKS_PATHMAKER_H
 #define MANOTOM_GENERATEBLANKS_PATHMAKER_H
 
@@ -107,5 +103,4 @@ public:
 //        std::ofstream(path) << std::setw(4) << jsonObj << std::endl;
 //    }
 };
-
 #endif //MANOTOM_GENERATEBLANKS_PATHMAKER_H

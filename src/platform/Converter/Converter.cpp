@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #include "Converter.h"
 #include <iconv.h>
 #include <iostream>

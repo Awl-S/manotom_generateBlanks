@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #include "ReaderNBR.h"
 
 std::variant<tbl *, cfm *, zgt *, nbr *, location *> ReaderNBR::GetData()

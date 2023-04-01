@@ -14,5 +14,4 @@ struct tbl
             position),
                                                                                                         model(model), measurements(measurements) {}
 };
-
 #endif //MANOTOM_GENERATEBLANKS_TBL_H

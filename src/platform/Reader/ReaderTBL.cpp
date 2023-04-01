@@ -1,7 +1,3 @@
-//
-// Created by orys on 31.03.23.
-//
-
 #include "ReaderTBL.h"
 #include "regex"
 
@@ -61,4 +57,19 @@ void ReaderTBL::SetFilename(const std::string &path)
 {
     filename = path;
     preRead(filename);
+}
+
+void ReaderTBL::display() {
+    std::cout << std::endl;
+    std::cout << "Позиция: " << data->position << std::endl;
+    std::cout << "Модель: " << data->model << std::endl;
+    for (auto i : data->measurements)
+    {
+        for (auto j : i)
+        {
+            std::cout << j << " ";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << std::endl;
 }

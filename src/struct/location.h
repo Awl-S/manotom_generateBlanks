@@ -1,0 +1,12 @@
+//
+// Created by orys on 31.03.23.
+//
+
+#ifndef MANOTOM_GENERATEBLANKS_LOCATION_H
+#define MANOTOM_GENERATEBLANKS_LOCATION_H
+
+struct location{
+
+};
+
+#endif //MANOTOM_GENERATEBLANKS_LOCATION_H

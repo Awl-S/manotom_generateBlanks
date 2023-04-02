@@ -6,6 +6,7 @@
 #include <iostream>
 #include <iomanip>
 #include "nlohmann/json.hpp"
+#include "../../struct/settings/path.h"
 
 class PathMaker {
 private:
@@ -102,5 +103,18 @@ public:
 //        jsonObj[name] = param;
 //        std::ofstream(path) << std::setw(4) << jsonObj << std::endl;
 //    }
+
+    static auto getDataStruct(std::string filename){
+        std::ifstream file(filename);
+        nlohmann::json jsonObj;
+        file >> jsonObj;
+        file.close();
+        path data;
+        data.cfm = jsonObj["cfm"];
+        data.icon = jsonObj["icon"];
+        data.nbr = jsonObj["nbr"];
+        data.zgt = jsonObj["zgt"];
+        return data;
+    }
 };
 #endif //MANOTOM_GENERATEBLANKS_PATHMAKER_H

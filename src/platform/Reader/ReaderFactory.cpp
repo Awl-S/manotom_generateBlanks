@@ -1,4 +1,5 @@
 #include <filesystem>
+#include <unordered_map>
 #include "ReaderFactory.h"
 #include "ReaderTBL.h"
 #include "ReaderZGT.h"
@@ -7,23 +8,23 @@
 
 short ReaderFactory::DetermineFileType(const std::string &filename)
 {
-    std::string extension = filename.substr(filename.find_first_of(".") + 1);
-    if (extension == "tbl" || extension == "tbl.json")
-    {
-        return 1;
+    static const std::unordered_map<std::string, short> extension_map = {
+            { "tbl", 1 },
+            { "tbl.json", 1 },
+            { "згт", 2 },
+            { "згт.json", 2 },
+            { "cfm", 3 },
+            { "cfm.json", 3 },
+            { "нбр", 4 },
+            { "нбр.json", 4 }
+    };
+
+    std::string extension = filename.substr(filename.find_last_of(".") + 1);
+    auto it = extension_map.find(extension);
+    if (it != extension_map.end()) {
+        return it->second;
     }
-    else if (extension == "згт" || extension == "згт.json")
-    {
-        return 2;
-    }
-    else if (extension == "cfm" || extension == "cfm.json")
-    {
-        return 3;
-    }
-    else if (extension == "нбр" || extension == "нбр.json")
-    {
-        return 4;
-    }
+
     return -1;
 }
 

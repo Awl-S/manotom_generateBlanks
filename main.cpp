@@ -6,6 +6,7 @@
 #include "src/platform/Reader/ReaderFactory.h"
 #include "src/platform/PathMaker/PathMaker.h"
 #include "src/struct/settings/settings.h"
+#include "src/platform/Manager/Manager.h"
 
 void start(int argc, char *argv[]){
     if(argc > 1){
@@ -40,7 +41,7 @@ void start(int argc, char *argv[]){
             }
         }
 
-        if(std::strcmp(argv[1], "-печать") == 0){
+        if(std::strcmp(argv[1], "-печать") == 0 || std::strcmp(argv[1], "-print") == 0){
             settings* data = new settings("", 0, 0, 0);
             data->accuracy = argv[2];
             data->color = atof(argv[3]);
@@ -78,6 +79,14 @@ void start(int argc, char *argv[]){
     }
 }
 int main(int argc, char *argv[] ){
-    start(argc, argv);
+    auto data = PathMaker::getDataStruct("/home/orys/CLionProjects/manotom_generateBlanks/cmake-build-debug/path.json");
+    auto [dataVector, dataCFM, dataZGT, dataNBR] =  Manager::readFile(data, "/home/orys/Desktop/target/манометры/p4-6/");
+
+    for (auto & i : dataVector) {
+        std::cout << i->position << std::endl;
+        std::cout << i->model << std::endl;
+    }
+
+//    start(argc, argv);
     return 0;
 }

@@ -24,6 +24,8 @@ void ReaderCFM::ReadFile()
             case 3:
             {
                 data->blank = line;
+                data->blank.erase(0, data->blank.find_first_not_of(" \t\r\n"));
+                data->blank.erase(data->blank.find_last_not_of(" \t\r\n") + 1);
                 break;
             }
             case 6:

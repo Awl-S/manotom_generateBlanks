@@ -10,6 +10,7 @@
 #include "src/platform/PathMaker/PathMaker.h"
 #include "src/struct/settings/settings.h"
 #include "src/platform/Manager/Manager.h"
+#include "test.h"
 
 void start(int argc, char *argv[]) {
     if (argc > 1) {
@@ -45,11 +46,7 @@ void start(int argc, char *argv[]) {
             file.close();
         }
     } else {
-        auto data = PathMaker::getDataStruct("/home/orys/CLionProjects/manotom_generateBlanks/cmake-build-debug/path.json");
-        auto [dataVector, dataCFM, dataZGT, dataNBR] =  Manager::readFile(data, "/home/orys/Desktop/target/манометры/p4-6/");
-        for (auto& i : dataVector) {
-            std::cout << i->position << std::endl << i->model << std::endl;
-        }
+        test();
     }
 }
 

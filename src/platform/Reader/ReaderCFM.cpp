@@ -1,80 +1,47 @@
 #include "ReaderCFM.h"
 
-void ReaderCFM::ReadFile()
-{
+std::string trim(const std::string& str) {
+    size_t first = str.find_first_not_of(" \t\r\n");
+    size_t last = str.find_last_not_of(" \t\r\n");
+    if (first == std::string::npos || last == std::string::npos) {
+        return "";
+    }
+    return str.substr(first, last - first + 1);
+}
+
+void ReaderCFM::ReadFile() {
     std::ifstream file(filename);
-    if (!file.is_open())
-    {
+    if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filename);
     }
 
     std::string line;
     size_t count = 1;
-    while (std::getline(file, line))
-    {
-        switch (count)
-        {
-            case 1:
-            {
-                data->header = line;
-                data->header.erase(0, data->header.find_first_not_of(" \t\r\n"));
-                data->header.erase(data->header.find_last_not_of(" \t\r\n") + 1);
-                break;
+    while (std::getline(file, line)) {
+        if (count == 1) {
+            data->header = trim(line);
+        } else if (count == 3) {
+            data->blank = trim(line);
+        } else if (count == 6) {
+            std::istringstream iss(line);
+            double temp;
+            while (iss >> temp) {
+                data->marks.push_back(temp);
             }
-            case 3:
-            {
-                data->blank = line;
-                data->blank.erase(0, data->blank.find_first_not_of(" \t\r\n"));
-                data->blank.erase(data->blank.find_last_not_of(" \t\r\n") + 1);
-                break;
-            }
-            case 6:
-            {
-                std::istringstream iss(line);
-                double temp;
-                while (iss >> temp)
-                {
-                    data->marks.push_back(temp);
-                }
-                break;
-            }
-            case 8:
-            {
-                std::istringstream(line) >> data->format[0] >> data->format[1];
-                break;
-            }
-            case 10:
-            {
-                std::istringstream(line) >> data->diameter;
-                break;
-            }
-            case 12:
-            {
-                std::istringstream(line) >> data->small_tick[0] >> data->small_tick[1];
-                break;
-            }
-            case 14:
-            {
-                std::istringstream(line) >> data->big_tick[0] >> data->big_tick[1];
-                break;
-            }
-            case 16:
-            {
-                std::istringstream(line) >> data->digital_tick[0] >> data->digital_tick[1] >> data->digital_tick[2] >> data->digital_tick[3];
-                break;
-            }
-            case 18:
-            {
-                std::istringstream(line) >> data->digit_height >> data->label_height;
-                break;
-            }
-            case 20:
-            {
-                data->tick_mask = line;
-                data->tick_mask.erase(0, data->tick_mask.find_first_not_of(" \t\r\n"));
-                data->tick_mask.erase(data->tick_mask.find_last_not_of(" \t\r\n") + 1);
-                break;
-            }
+        } else if (count == 8) {
+            std::istringstream(line) >> data->format[0] >> data->format[1];
+        } else if (count == 10) {
+            std::istringstream(line) >> data->diameter;
+        } else if (count == 12) {
+            std::istringstream(line) >> data->small_tick[0] >> data->small_tick[1];
+        } else if (count == 14) {
+            std::istringstream(line) >> data->big_tick[0] >> data->big_tick[1];
+        } else if (count == 16) {
+            std::istringstream(line) >> data->digital_tick[0] >> data->digital_tick[1] >> data->digital_tick[2] >> data->digital_tick[3];
+        } else if (count == 18) {
+            std::istringstream(line) >> data->digit_height >> data->label_height;
+        } else if (count == 20) {
+            data->tick_mask = trim(line);
         }
         count++;
     }

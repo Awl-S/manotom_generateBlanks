@@ -12,7 +12,6 @@ void ReaderTBL::ReadFile() {
     if (!file.is_open()) {
         throw std::runtime_error("Failed to open file: " + filename);
     }
-
     std::string file_name = filename.substr(filename.find_last_of("/") + 1);
     std::regex pattern("\\d+");
     std::smatch matches;

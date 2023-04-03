@@ -10,7 +10,6 @@
 #include "src/platform/PathMaker/PathMaker.h"
 #include "src/struct/settings/settings.h"
 #include "src/platform/Manager/Manager.h"
-#include "test.h"
 
 double string_to_double( const std::string& s )
 {
@@ -70,7 +69,7 @@ void start(int argc, char *argv[]) {
         }
     } else {
         std::cout << "test!" << std::endl;
-        test();
+//        test();
     }
 }
 

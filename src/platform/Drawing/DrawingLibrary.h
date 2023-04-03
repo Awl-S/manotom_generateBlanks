@@ -14,6 +14,7 @@ public:
             return;
         }
 
+
         // Use C++ library to draw data
         std::cout << "Drawing data using the C++ library\n";
         for (const auto& datum : *m_data) {

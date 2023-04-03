@@ -8,7 +8,6 @@ class ReaderFactory : public Reader
 {
 private:
     static short DetermineFileType(const std::string &filename);
-
 public:
     static std::unique_ptr<Reader> CreateReader(const std::string &filename);
 };

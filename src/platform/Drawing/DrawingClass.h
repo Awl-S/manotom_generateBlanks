@@ -18,6 +18,7 @@ public:
         m_data = std::make_shared<std::vector<int>>(data);
     }
 
+    
     virtual void draw() const = 0;
 
 protected:

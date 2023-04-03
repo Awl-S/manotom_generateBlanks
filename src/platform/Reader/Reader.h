@@ -20,16 +20,10 @@ public:
     virtual void SetFilename(const std::string &path) = 0;
     virtual void display() = 0;
     virtual ~Reader() {}
-
 protected:
-
     short DetermineFileOrJson(const std::string &filename);
-
     void preRead(const std::string &path);
-
     static std::string readLineString(std::ifstream &file);
-
     std::string trim(const std::string& str);
-
 };
 #endif //MANOTOM_GENERATEBLANKS_READER_H

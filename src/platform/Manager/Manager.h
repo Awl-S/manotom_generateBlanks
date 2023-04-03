@@ -14,7 +14,7 @@ class Manager {
     static std::string search_directory(const fs::path &dir_path, const std::string &file_name);
 
 public:
-    static std::tuple<std::vector<tbl*>, cfm*, zgt*, nbr*> readFile(path pathdata, std::string path_tbl);
+    static std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> readFile(path pathdata, std::string path_tbl, std::string path_nbr);
 };
 
 #endif //MANOTOM_GENERATEBLANKS_MANAGER_H

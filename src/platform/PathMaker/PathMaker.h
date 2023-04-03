@@ -104,7 +104,7 @@ public:
 //        std::ofstream(path) << std::setw(4) << jsonObj << std::endl;
 //    }
 
-    static auto getDataStruct(std::string filename){
+    static path getDataStruct(std::string filename){
         std::ifstream file(filename);
         nlohmann::json jsonObj;
         file >> jsonObj;

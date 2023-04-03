@@ -12,6 +12,15 @@
 #include "src/platform/Manager/Manager.h"
 #include "test.h"
 
+double string_to_double( const std::string& s )
+{
+    std::istringstream i(s);
+    double x;
+    if (!(i >> x))
+        return 0;
+    return x;
+}
+
 void start(int argc, char *argv[]) {
     if (argc > 1) {
         const char* cmd = argv[1];
@@ -34,10 +43,24 @@ void start(int argc, char *argv[]) {
             }
         }
             // Печать
+            //json тбл нбр ... ... ... ...
         else if (std::strcmp(cmd, "-печать") == 0 || std::strcmp(cmd, "-print") == 0) {
-            settings data("", std::stoi(argv[2]), std::atof(argv[3]), std::strcmp(argv[4], "true") == 0 || std::strcmp(argv[4], "1") == 0);
-            data.contour = std::strcmp(argv[5], "true") == 0 || std::strcmp(argv[5], "1") == 0;
+            std::string jsonPath = argv[2];
+            std::string tblPath = argv[3];
+            std::string nbrPath = argv[4];
+
+            bool isContour = false;
+            bool isTemperature = false;
+
+            if(std::strcmp(argv[6], "true") == 0 || std::strcmp(argv[6], "1") == 0){
+                isTemperature = true;
+            }
+            if(std::strcmp(argv[8], "true") == 0 || std::strcmp(argv[8], "1") == 0){
+                isContour = true;
+            }
+            settings data_settings(argv[5], isTemperature, string_to_double(argv[7]), isContour);
             // путь, класс точности, bool -65, double значение цвета, bool контур
+            Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
         }
             // Справка
         else if (std::strcmp(cmd, "-help") == 0) {
@@ -46,6 +69,7 @@ void start(int argc, char *argv[]) {
             file.close();
         }
     } else {
+        std::cout << "test!" << std::endl;
         test();
     }
 }

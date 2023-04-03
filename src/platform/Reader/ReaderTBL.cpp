@@ -24,11 +24,10 @@ void ReaderTBL::ReadFile() {
     readLineString(file);
     data->model = readLineString(file);
 
-    data->measurements.reserve(std::count(std::istreambuf_iterator<char>(file), std::istreambuf_iterator<char>(), '\n'));
+    data->measurements.reserve(20);
     while (std::getline(file, line)) {
-        std::istringstream iss(line);
-        double col2, col3;
-        if (iss >> col2 >> col3) {
+        double temp, col2, col3;
+        if (std::istringstream(line) >> temp >> col2 >> col3) {
             data->measurements.push_back({col2, col3});
         }
     }

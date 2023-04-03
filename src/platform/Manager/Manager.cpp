@@ -1,33 +1,11 @@
 #include "Manager.h"
 
-std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> Manager::readFile(path pathdata, std::string path_tbl) {
-
-    //Включить, если все scale уникальны
-//        for (const auto& entry : fs::directory_iterator(path_tbl)) {
-//            auto objectTBL = ReaderFactory::CreateReader(entry.path());
-//            auto dataTBL = std::get<tbl*>(objectTBL->GetData());
-//            objectTBL->display();
-//
-//            auto objectCFM = ReaderFactory::CreateReader(search_directory(pathdata.cfm, dataTBL->model + ".cfm"));
-//            auto dataCFM = std::get<cfm*>(objectCFM->GetData());
-//            objectCFM->display();
-//
-//            auto objectZGT = ReaderFactory::CreateReader(search_directory(pathdata.zgt, dataCFM->blank + ".згт"));
-//            auto dataZGT = std::get<zgt*>(objectZGT->GetData());
-//            objectZGT->display();
-//
-//            //Отключено на время, пока не реализован класс наборов
-////                std::cout << search_directory(pathdata.nbr, dataCFM->blank + ".нбр") << std::endl;
-////                std::cout << dataTBL->model << std::endl;
-////                auto objectNBR = ReaderFactory::CreateReader(search_directory(pathdata.nbr, dataCFM->blank + ".нбр"));
-////                auto dataNBR = std::get<nbr*>(objectNBR->GetData());
-//            //    objectNBR->display();
-//        }
-
+ std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> Manager::readFile(path pathdata, std::string path_tbl, std::string path_nbr) {
     std::vector<tbl*> data;
     for (const auto& entry : fs::directory_iterator(path_tbl)) {
         auto objectTBL = ReaderFactory::CreateReader(entry.path());
         data.push_back(std::get<tbl*>(objectTBL->GetData()));
+        objectTBL->display();
     }
 
     if(data.empty() == true)
@@ -35,17 +13,15 @@ std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> Manager::readFile(path pathd
 
     auto objectCFM = ReaderFactory::CreateReader(search_directory(pathdata.cfm, data[0]->model + ".cfm"));
     auto dataCFM = std::get<cfm*>(objectCFM->GetData());
+    objectCFM->display();
 
     auto objectZGT = ReaderFactory::CreateReader(search_directory(pathdata.zgt, dataCFM->blank + ".згт"));
     auto dataZGT = std::get<zgt*>(objectZGT->GetData());
+    objectZGT->display();
 
-    nbr* dataNBR;
-    //Отключено на время, пока не реализован класс наборов
-//                std::cout << search_directory(pathdata.nbr, dataCFM->blank + ".нбр") << std::endl;
-//                std::cout << dataTBL->model << std::endl;
-//                auto objectNBR = ReaderFactory::CreateReader(search_directory(pathdata.nbr, dataCFM->blank + ".нбр"));
-//                auto dataNBR = std::get<nbr*>(objectNBR->GetData());
-    //    objectNBR->display();
+    auto objectNBR = ReaderFactory::CreateReader(search_directory(pathdata.nbr, path_nbr));
+    auto dataNBR = std::get<nbr*>(objectNBR->GetData());
+    objectNBR->display();
 
     //Сортировка вектора по полю position
     std::sort(data.begin(), data.end(), [](const tbl* a, const tbl* b) {

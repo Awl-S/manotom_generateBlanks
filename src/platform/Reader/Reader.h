@@ -28,5 +28,8 @@ protected:
     void preRead(const std::string &path);
 
     static std::string readLineString(std::ifstream &file);
+
+    std::string trim(const std::string& str);
+
 };
 #endif //MANOTOM_GENERATEBLANKS_READER_H

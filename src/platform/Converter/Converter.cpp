@@ -7,7 +7,7 @@
 #include <string>
 namespace fs = std::filesystem;
 
-void Converter::ConverterUTF(std::string path_in, std::string path_out)
+void Converter::ConverterUTF(const std::string& path_in, const std::string& path_out)
 {
     std::string from_charsets = "WINDOWS-1251";
     std::string to_charsets = "UTF-8";

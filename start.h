@@ -21,49 +21,64 @@ double string_to_double( const std::string& s )
     return x;
 }
 
+void print(char* argv[]){
+    // Считывание настроек
+    // путь, класс точности, bool -65, double значение цвета, bool контур
+    settings data_settings(argv[5], false, string_to_double(argv[7]), false);
+
+    if(std::strcmp(argv[6], "true") == 0 || std::strcmp(argv[6], "1") == 0){
+        data_settings.temperature = true;
+    }
+    if(std::strcmp(argv[8], "true") == 0 || std::strcmp(argv[8], "1") == 0){
+        data_settings.contour = true;
+    }
+
+    auto output = Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
+}
+
 void start(int argc, char *argv[]) {
     if (argc > 1) {
         const char* cmd = argv[1];
-        // Конвертация
-        if (std::strcmp(cmd, "-c") == 0) {
-            Converter::ConverterUTF(argv[2], argv[3]);
-        } else if (std::strcmp(cmd, "-C") == 0) {
-            Converter::ConverterUTF(argv[2], argv[3], argv[4], argv[5]);
-        } else if (std::strcmp(cmd, "--c") == 0) {
-            Converter::convert_file("WINDOWS-1251", "UTF-8", argv[2], argv[3]);
-        }
-            // Настройка путей
-        else if (std::strcmp(cmd, "-new") == 0) {
-            const char* path = (argc == 2) ? "" : argv[2];
-            PathMaker::create(path);
-        } else if (std::strcmp(cmd, "-edit") == 0) {
-            const char* path_arg = argv[2];
-            for (int i = 3; i < argc; ++i) {
-                PathMaker::editJsonFile((std::strcmp(path_arg, "-path") == 0) ? argv[i] : path_arg, argv[i]);
-            }
-        }
-            // Печать
-        else if (std::strcmp(cmd, "-печать") == 0 || std::strcmp(cmd, "-print") == 0) {
-            // Считывание настроек
-            // путь, класс точности, bool -65, double значение цвета, bool контур
-            settings data_settings(argv[5], false, string_to_double(argv[7]), false);
+        std::map<std::string, std::function<void()>> command_map = {
+                {"-c", [&]() {
+                    Converter::ConverterUTF(argv[2], argv[3]);
+                }},
+                {"-C", [&]() {
+                    Converter::ConverterUTF(argv[2], argv[3], argv[4], argv[5]);
+                }},
+                {"--c", [&]() {
+                    Converter::convert_file("WINDOWS-1251", "UTF-8", argv[2], argv[3]);
+                }},
+                {"-new", [&]() {
+                    const char* path = (argc == 2) ? "" : argv[2];
+                    PathMaker::create(path);
+                }},
+                {"-edit", [&]() {
+                    const char* path_arg = argv[2];
+                    for (int i = 3; i < argc; ++i) {
+                        PathMaker::editJsonFile((std::strcmp(path_arg, "-path") == 0) ? argv[i] : path_arg, argv[i]);
+                    }
+                }},
+                {"-печать", [&]() {
+                    print(argv);
+                }},
+                {"-print", [&]() {
+                    print(argv);
+                }},
+                {"-help", [&]() {
+                    std::ifstream file("help.txt");
+                    std::cout << file.rdbuf();
+                    file.close();
+                }},
+        };
 
-            if(std::strcmp(argv[6], "true") == 0 || std::strcmp(argv[6], "1") == 0){
-                data_settings.temperature = true;
-            }
-            if(std::strcmp(argv[8], "true") == 0 || std::strcmp(argv[8], "1") == 0){
-                data_settings.contour = true;
-            }
+        if (command_map.find(cmd) != command_map.end()) {
+            command_map[cmd]();
+        } else {
+            // Если введенная команда не найдена, запустите функцию тестирования
+            test();
+        }
 
-            auto output = Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
-            
-        }
-            // Справка
-        else if (std::strcmp(cmd, "-help") == 0) {
-            std::ifstream file("help.txt");
-            std::cout << file.rdbuf();
-            file.close();
-        }
     } else {
         test();
     }

@@ -2,19 +2,24 @@
 #define MANOTOM_GENERATEBLANKS_CONVERTER_H
 
 #include <filesystem>
-#include "string"
+#include <iostream>
+#include <fstream>
+#include <iconv.h>
+#include <string>
+#include <cstring>
+
+namespace fs = std::filesystem;
 
 class Converter {
-
-    static void copyDirectories(std::filesystem::path source, std::filesystem::path target);
-
 public:
-    static bool convert_file(const std::string &from_charset, const std::string &to_charset,
-                             const std::string &input_file, const std::string &output_file);
+    void ConvertUTF(const std::string& path_in, const std::string& path_out,
+                    const std::string& from_charset = "WINDOWS-1251",
+                    const std::string& to_charset = "UTF-8");
 
-    static void ConverterUTF(const std::string& path_in, const std::string& path_out);
-
-    [[maybe_unused]] static void ConverterUTF(std::string path_in, std::string in_charset, std::string path_out, std::string out_charset);
+private:
+    void copyDirectories(fs::path source, fs::path target);
+    bool convertFile(const std::string& from_charset, const std::string& to_charset,
+                     const std::string& input_file, const std::string& output_file);
 };
 
 #endif //MANOTOM_GENERATEBLANKS_CONVERTER_H

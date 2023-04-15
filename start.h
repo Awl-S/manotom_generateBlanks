@@ -11,6 +11,7 @@
 #include "src/struct/settings/settings.h"
 #include "src/platform/Manager/Manager.h"
 #include "test.h"
+#include "HELP_TEXT.h"
 
 double string_to_double( const std::string& s )
 {
@@ -19,6 +20,13 @@ double string_to_double( const std::string& s )
     if (!(i >> x))
         return 0;
     return x;
+}
+
+std::string time_now1(){
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    std::string time = "./" + std::to_string(1900 + ltm->tm_year) + "-" + std::to_string(1 + ltm->tm_mon) + "-" + std::to_string(ltm->tm_mday) + "_" + std::to_string(ltm->tm_hour) + ":" + std::to_string(ltm->tm_min) + ":" + std::to_string(ltm->tm_sec) + ".pdf";
+    return time;
 }
 
 void print(char* argv[]){
@@ -34,6 +42,7 @@ void print(char* argv[]){
     }
 
     auto output = Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
+//    DrawingLibrary manometr(time_now(), output, data_settings);
 }
 
 void start(int argc, char *argv[]) {
@@ -41,13 +50,16 @@ void start(int argc, char *argv[]) {
         const char* cmd = argv[1];
         std::map<std::string, std::function<void()>> command_map = {
                 {"-c", [&]() {
-                    Converter::ConverterUTF(argv[2], argv[3]);
+                    Converter converter;
+                    converter.ConvertUTF(argv[2], argv[3]);
                 }},
                 {"-C", [&]() {
-                    Converter::ConverterUTF(argv[2], argv[3], argv[4], argv[5]);
+                    Converter converter;
+                    converter.ConvertUTF(argv[2], argv[3], argv[4], argv[5]);
                 }},
                 {"--c", [&]() {
-                    Converter::convert_file("WINDOWS-1251", "UTF-8", argv[2], argv[3]);
+                    Converter converter;
+                    converter.ConvertUTF(argv[2], argv[3]);
                 }},
                 {"-new", [&]() {
                     const char* path = (argc == 2) ? "" : argv[2];
@@ -66,17 +78,17 @@ void start(int argc, char *argv[]) {
                     print(argv);
                 }},
                 {"-help", [&]() {
-                    std::ifstream file("help.txt");
-                    std::cout << file.rdbuf();
-                    file.close();
+                    std::cout << HELP_TEXT << std::endl;
                 }},
         };
 
-        if (command_map.find(cmd) != command_map.end()) {
+        if (command_map.contains(cmd)) {
             command_map[cmd]();
         } else {
             // Если введенная команда не найдена, запустите функцию тестирования
             test();
+//            std::cout << HELP_TEXT << std::endl;
+
         }
 
     } else {

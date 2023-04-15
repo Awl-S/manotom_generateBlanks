@@ -10,6 +10,7 @@
 #include "src/platform/PathMaker/PathMaker.h"
 #include "src/struct/settings/settings.h"
 #include "src/platform/Manager/Manager.h"
+#include "test.h"
 
 double string_to_double( const std::string& s )
 {
@@ -42,24 +43,20 @@ void start(int argc, char *argv[]) {
             }
         }
             // Печать
-            //json тбл нбр ... ... ... ...
         else if (std::strcmp(cmd, "-печать") == 0 || std::strcmp(cmd, "-print") == 0) {
-            std::string jsonPath = argv[2];
-            std::string tblPath = argv[3];
-            std::string nbrPath = argv[4];
-
-            bool isContour = false;
-            bool isTemperature = false;
+            // Считывание настроек
+            // путь, класс точности, bool -65, double значение цвета, bool контур
+            settings data_settings(argv[5], false, string_to_double(argv[7]), false);
 
             if(std::strcmp(argv[6], "true") == 0 || std::strcmp(argv[6], "1") == 0){
-                isTemperature = true;
+                data_settings.temperature = true;
             }
             if(std::strcmp(argv[8], "true") == 0 || std::strcmp(argv[8], "1") == 0){
-                isContour = true;
+                data_settings.contour = true;
             }
-            settings data_settings(argv[5], isTemperature, string_to_double(argv[7]), isContour);
-            // путь, класс точности, bool -65, double значение цвета, bool контур
-            Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
+
+            auto output = Manager::readFile(PathMaker::getDataStruct(argv[2]), argv[3], argv[4]);
+            
         }
             // Справка
         else if (std::strcmp(cmd, "-help") == 0) {
@@ -68,8 +65,7 @@ void start(int argc, char *argv[]) {
             file.close();
         }
     } else {
-        std::cout << "test!" << std::endl;
-//        test();
+        test();
     }
 }
 

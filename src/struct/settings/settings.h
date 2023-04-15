@@ -13,6 +13,8 @@ struct settings{
                                                                                           temperature(temperature),
                                                                                           color(color),
                                                                                           contour(contour) {}
+
+    settings() {}
 };
 
 #endif //MANOTOM_GENERATEBLANKS_SETTINGS_H

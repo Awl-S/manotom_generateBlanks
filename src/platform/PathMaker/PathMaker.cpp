@@ -1,6 +1,6 @@
 #include "PathMaker.h"
 
-[[maybe_unused]] void PathMaker::editJsonFile(std::string paramToEdit) {
+[[maybe_unused]] void PathMaker::editJsonFile(const std::string& paramToEdit) {
     std::ifstream file("path.json");
     nlohmann::json jsonObj;
     file >> jsonObj;
@@ -19,7 +19,7 @@
     std::ofstream("path.json") << std::setw(4) << jsonObj << std::endl;
 }
 
-void PathMaker::editJsonFile(std::string path, std::string paramToEdit) {
+void PathMaker::editJsonFile(const std::string& path, const std::string& paramToEdit) {
     std::ifstream file(path);
     nlohmann::json jsonObj;
     file >> jsonObj;
@@ -38,7 +38,7 @@ void PathMaker::editJsonFile(std::string path, std::string paramToEdit) {
     std::ofstream(path) << std::setw(4) << jsonObj << std::endl;
 }
 
-path PathMaker::getDataStruct(std::string filename) {
+path PathMaker::getDataStruct(const std::string& filename) {
     std::ifstream file(filename);
     nlohmann::json jsonObj;
     file >> jsonObj;

@@ -1,6 +1,6 @@
 #include "Manager.h"
 
- std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> Manager::readFile(path pathdata, std::string path_tbl, std::string path_nbr) {
+ std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> Manager::readFile(const path& pathdata, const std::string& path_tbl, const std::string& path_nbr) {
     std::vector<tbl*> data;
     for (const auto& entry : fs::directory_iterator(path_tbl)) {
         auto objectTBL = ReaderFactory::CreateReader(entry.path());
@@ -8,8 +8,9 @@
         objectTBL->display();
     }
 
-    if(data.empty() == true)
-        throw std::runtime_error("vector is empty");
+     if (data.empty()) {
+         throw std::runtime_error("vector is empty");
+     }
 
     auto objectCFM = ReaderFactory::CreateReader(search_directory(pathdata.cfm, data[0]->model + ".cfm"));
     auto dataCFM = std::get<cfm*>(objectCFM->GetData());

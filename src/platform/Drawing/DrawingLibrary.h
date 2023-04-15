@@ -1,28 +1,43 @@
 #ifndef MANOTOM_GENERATEBLANKS_DRAWINGLIBRARY_H
 #define MANOTOM_GENERATEBLANKS_DRAWINGLIBRARY_H
 
-#include "DrawingClass.h"
+#include <stdexcept>
+#include <utility>
+#include <vector>
+#include <tuple>
+#include "string"
+#include "hpdf.h"
+#include "../../struct/tbl.h"
+#include "../../struct/zgt.h"
+#include "../../struct/cfm.h"
+#include "../../struct/nbr.h"
+#include "../../struct/location.h"
+#include "../../struct/settings/settings.h"
 
-class DrawingLibrary : public DrawingClass {
+class DrawingLibrary{
 public:
-    DrawingLibrary() = default;
-    ~DrawingLibrary() override = default;
+    // Название файла, тбл данные, сфм, zgt, nbr
+    DrawingLibrary(std::string  filename, const std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *>& dataTuple, location *locationData, const settings& data);
 
-    void draw() const override {
-        if (m_data == nullptr) {
-            std::cout << "No data to draw\n";
-            return;
-        }
+    ~DrawingLibrary();
 
+//    void drawCircles(double x, double y, double radius);
+//    void saveToFile();
+//
+//    void draw();
 
-        // Use C++ library to draw data
-        std::cout << "Drawing data using the C++ library\n";
-        for (const auto& datum : *m_data) {
-            std::cout << datum << " ";
-        }
-        std::cout << "\n";
-    }
+private:
+    HPDF_Doc pdf{};
+    HPDF_Page page{};
+    std::string filename;
+    std::vector<double>elem;
+    tbl* tblData{};
+    cfm* cfmData{};
+    zgt* zgtData{};
+    nbr* nbrData{};
+    location* locData{};
+
+    settings dataSetting;
 };
-
 
 #endif //MANOTOM_GENERATEBLANKS_DRAWINGLIBRARY_H

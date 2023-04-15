@@ -17,9 +17,9 @@ public:
     static void create(std::string path);
     [[maybe_unused]] static void create();
     //Редактирование файла с путями
-    static void editJsonFile(std::string path, std::string paramToEdit);
-    [[maybe_unused]] static void editJsonFile(std::string paramToEdit);
-    static path getDataStruct(std::string filename);
+    static void editJsonFile(const std::string& path, const std::string& paramToEdit);
+    [[maybe_unused]] static void editJsonFile(const std::string& paramToEdit);
+    static path getDataStruct(const std::string& filename);
 };
 #endif //MANOTOM_GENERATEBLANKS_PATHMAKER_H
 

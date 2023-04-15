@@ -12,6 +12,6 @@ namespace fs = std::filesystem;
 class Manager {
     static std::string search_directory(const fs::path &dir_path, const std::string &file_name);
 public:
-    static std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> readFile(path pathdata, std::string path_tbl, std::string path_nbr);
+    static std::tuple<std::vector<tbl *>, cfm *, zgt *, nbr *> readFile(const path& pathdata, const std::string& path_tbl, const std::string& path_nbr);
 };
 #endif //MANOTOM_GENERATEBLANKS_MANAGER_H

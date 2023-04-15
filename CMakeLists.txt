@@ -50,4 +50,4 @@ find_package(unofficial-libharu CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE unofficial::libharu::hpdf)
 
 # Установка имени создаваемого файла
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "black")
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "blank")

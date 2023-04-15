@@ -47,26 +47,26 @@ void print(char* argv[]){
 
 void start(int argc, char *argv[]) {
     if (argc > 1) {
-        const char* cmd = argv[1];
+        const char *cmd = argv[1];
         std::map<std::string, std::function<void()>> command_map = {
-                {"-c", [&]() {
+                {"-c",      [&]() {
                     Converter converter;
                     converter.ConvertUTF(argv[2], argv[3]);
                 }},
-                {"-C", [&]() {
+                {"-C",      [&]() {
                     Converter converter;
                     converter.ConvertUTF(argv[2], argv[3], argv[4], argv[5]);
                 }},
-                {"--c", [&]() {
+                {"--c",     [&]() {
                     Converter converter;
                     converter.ConvertUTF(argv[2], argv[3]);
                 }},
-                {"-new", [&]() {
-                    const char* path = (argc == 2) ? "" : argv[2];
+                {"-new",    [&]() {
+                    const char *path = (argc == 2) ? "" : argv[2];
                     PathMaker::create(path);
                 }},
-                {"-edit", [&]() {
-                    const char* path_arg = argv[2];
+                {"-edit",   [&]() {
+                    const char *path_arg = argv[2];
                     for (int i = 3; i < argc; ++i) {
                         PathMaker::editJsonFile((std::strcmp(path_arg, "-path") == 0) ? argv[i] : path_arg, argv[i]);
                     }
@@ -74,11 +74,14 @@ void start(int argc, char *argv[]) {
                 {"-печать", [&]() {
                     print(argv);
                 }},
-                {"-print", [&]() {
+                {"-print",  [&]() {
                     print(argv);
                 }},
-                {"-help", [&]() {
+                {"-help",   [&]() {
                     std::cout << HELP_TEXT << std::endl;
+                }},
+                {"-test",   [&]() {
+                    test();
                 }},
         };
 
@@ -86,14 +89,13 @@ void start(int argc, char *argv[]) {
             command_map[cmd]();
         } else {
             // Если введенная команда не найдена, запустите функцию тестирования
-            test();
-//            std::cout << HELP_TEXT << std::endl;
-
+            std::cout << HELP_TEXT << std::endl;
         }
 
-    } else {
-        test();
     }
+//    } else {
+//        test();
+//    }
 }
 
 #endif //MANOTOM_GENERATEBLANKS_START_H

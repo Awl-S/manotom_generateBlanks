@@ -36,8 +36,8 @@ add_executable(${PROJECT_NAME}
         src/platform/Drawing/DrawingLibrary.cpp
         src/platform/Drawing/DrawingLibrary.h
         test.h
-        HELP_TEXT.h
-        src/platform/Reader/ReaderPoint.h)
+        src/HELP_TEXT.h
+        src/platform/Reader/ModelPointsReader.cpp src/platform/Reader/ModelPointsReader.h)
 
 #JSON
 find_package(nlohmann_json CONFIG REQUIRED)

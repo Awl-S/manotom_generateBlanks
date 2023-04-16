@@ -9,7 +9,7 @@ class ReaderZGT  : public Reader{
     zgt *data;
     std::string filename = "-1";
 public:
-    ReaderZGT(const std::string &filename);
+    explicit ReaderZGT(const std::string &filename);
     void ReadFile() override;
     void ReadJson() override;
     std::variant<tbl *, cfm *, zgt *, nbr *, location *> GetData() override;

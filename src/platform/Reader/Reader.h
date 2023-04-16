@@ -19,7 +19,7 @@ public:
     virtual std::variant<tbl *, cfm *, zgt *, nbr *, location *> GetData() = 0;
     virtual void SetFilename(const std::string &path) = 0;
     virtual void display() = 0;
-    virtual ~Reader() {}
+    virtual ~Reader() = default;
 protected:
     short DetermineFileOrJson(const std::string &filename);
     void preRead(const std::string &path);

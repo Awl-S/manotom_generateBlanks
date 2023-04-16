@@ -14,8 +14,7 @@ void ReaderTBL::ReadFile() {
     }
     std::string file_name = filename.substr(filename.find_last_of("/") + 1);
     std::regex pattern("\\d+");
-    std::smatch matches;
-    if (std::regex_search(file_name, matches, pattern)) {
+    if (std::smatch matches; std::regex_search(file_name, matches, pattern)) {
         data->position = std::stoi(matches[0]);
     }
 
@@ -25,7 +24,9 @@ void ReaderTBL::ReadFile() {
 
     data->measurements.reserve(20);
     while (std::getline(file, line)) {
-        double temp, col2, col3;
+        double temp;
+        double col2;
+        double col3;
         if (std::istringstream(line) >> temp >> col2 >> col3) {
             data->measurements.push_back({col2, col3});
         }
@@ -34,7 +35,7 @@ void ReaderTBL::ReadFile() {
 
 void ReaderTBL::ReadJson()
 {
-    std::cout << "tblJ" << std::endl;
+    std::cout << "tblJson" << std::endl;
 }
 
 std::variant<tbl *, cfm *, zgt *, nbr *, location *> ReaderTBL::GetData()
@@ -52,7 +53,7 @@ void ReaderTBL::display() {
     std::cout << std::endl;
     std::cout << "Позиция: " << data->position << std::endl;
     std::cout << "Модель: " << data->model << std::endl;
-    for (auto i : data->measurements)
+    for (const auto& i : data->measurements)
     {
         for (auto j : i)
         {

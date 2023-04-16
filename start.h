@@ -11,7 +11,7 @@
 #include "src/struct/settings/settings.h"
 #include "src/platform/Manager/Manager.h"
 #include "test.h"
-#include "HELP_TEXT.h"
+#include "src/HELP_TEXT.h"
 
 double string_to_double( const std::string& s )
 {
@@ -88,14 +88,12 @@ void start(int argc, char *argv[]) {
         if (command_map.contains(cmd)) {
             command_map[cmd]();
         } else {
-            // Если введенная команда не найдена, запустите функцию тестирования
-            std::cout << HELP_TEXT << std::endl;
+            std::cout << "Unknown command: " << cmd << std::endl;
         }
-
     }
-//    } else {
-//        test();
-//    }
+    else {
+        std::cout << HELP_TEXT << std::endl;
+    }
 }
 
 #endif //MANOTOM_GENERATEBLANKS_START_H
